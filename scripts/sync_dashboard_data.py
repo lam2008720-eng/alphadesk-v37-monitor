@@ -75,6 +75,13 @@ def main() -> int:
         "promoted": bool(historical["promoted"]),
         "eligible_for_promotion": bool(historical["eligible_for_promotion"]),
         "orders_submitted": int(historical.get("orders_submitted", 0)),
+        "paper_wallet": {
+            "starting_balance": float(forward["diagnostics"]["initial_capital"]),
+            "current_balance": float(forward["diagnostics"]["ending_equity"]),
+            "net_return": forward["metrics"]["return"],
+            "real_exposure": 0.0,
+            "real_positions": 0,
+        },
         "historical": {
             "initial_capital": float(historical["diagnostics"]["initial_capital"]),
             "ending_equity": float(historical["diagnostics"]["ending_equity"]),

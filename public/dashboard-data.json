@@ -1,10 +1,17 @@
 {
-  "generated_at": "2026-09-08T07:09:12.027135+00:00",
+  "generated_at": "2026-09-08T07:17:15.805547+00:00",
   "strategy": "V37_3_PROPORTIONAL_CAPITAL_UTILIZATION",
   "mode": "SHADOW ONLY",
   "promoted": false,
   "eligible_for_promotion": false,
   "orders_submitted": 0,
+  "paper_wallet": {
+    "starting_balance": 500.0,
+    "current_balance": 500.0,
+    "net_return": null,
+    "real_exposure": 0.0,
+    "real_positions": 0
+  },
   "historical": {
     "initial_capital": 500.0,
     "ending_equity": 995.4201392448075,

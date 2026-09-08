@@ -29,7 +29,14 @@ nav button.active svg:first-child { color:var(--green); }
 .topbar p { margin:3px 0 0; font-size:11px; color:var(--muted); }
 .top-actions { margin-left:auto; display:flex; align-items:center; gap:14px; font-size:11px; color:var(--muted); }
 .online { display:flex; align-items:center; gap:7px; color:#9edcbe; padding:7px 10px; border:1px solid #173d2d; border-radius:999px; background:#071c14; }
+.online.delayed { color:var(--amber); border-color:#594a22; background:#1c1709; }
+.online.delayed i { background:var(--amber); box-shadow:0 0 9px var(--amber); }
 .online i,.healthy i,.status-dot { width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 9px var(--green); }
+.refresh-button { width:32px; height:32px; display:grid; place-items:center; border:1px solid #1d4032; border-radius:8px; color:#91aa9f; background:#081912; cursor:pointer; }
+.refresh-button:hover { color:var(--green); border-color:#2b6b4e; }
+.refresh-button:disabled { opacity:.55; cursor:wait; }
+.spinning { animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
 .avatar { width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--green); color:#052016; font-weight:800; }
 .menu-button { display:none; border:0; background:transparent; color:var(--text); }
 .content { max-width:1660px; margin:0 auto; padding:22px; }
@@ -41,7 +48,12 @@ nav button.active svg:first-child { color:var(--green); }
 .banner-badges { margin-left:auto; display:flex; gap:8px; }
 .badge { display:flex; align-items:center; gap:6px; padding:7px 9px; border-radius:6px; font-size:10px; font-weight:700; letter-spacing:.04em; }
 .badge.shadow { border:1px solid #357055; color:var(--green); background:#0a281d; }
+.badge.paper { border:1px solid #316c6a; color:#6ee7df; background:#092321; }
 .badge.frozen { border:1px solid #423b28; color:#d9b969; background:#1c180c; }
+.paper-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin:12px 0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--border); }
+.paper-strip>div { min-width:0; padding:13px 15px; background:#07130f; }
+.paper-strip span { display:block; color:#698078; font-size:10px; }
+.paper-strip strong { display:block; margin-top:6px; font-size:14px; color:#d9ebe3; }
 .metrics-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:12px 0; }
 .metric-card { min-width:0; padding:15px; border:1px solid var(--border); border-radius:10px; background:linear-gradient(145deg,#091610,#07100d); }
 .metric-card p { margin:0 0 9px; color:#748a81; font-size:11px; }
@@ -81,7 +93,10 @@ nav button.active svg:first-child { color:var(--green); }
 .mini-panel b { font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .mini-panel .status-dot { margin-left:auto; flex:none; }
 .mini-panel .status-dot.amber { background:var(--amber); box-shadow:0 0 9px var(--amber); }
+.mini-panel .status-dot.red { background:var(--red); box-shadow:0 0 9px var(--red); }
+footer { padding:18px 4px 4px; color:#4f655c; font-size:10px; line-height:1.6; text-align:center; }
+.panel,.strategy-banner,.paper-strip { scroll-margin-top:88px; }
 .scrim { display:none; }
 @media(max-width:1150px){.metrics-grid{grid-template-columns:repeat(3,1fr)}.bottom-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.sidebar{transform:translateX(-100%);transition:transform .2s ease}.sidebar-open{transform:translateX(0)}.mobile-close,.menu-button{display:grid;place-items:center}.workspace{margin-left:0}.topbar{padding:0 14px;gap:10px}.utc{display:none}.scrim{display:block;position:fixed;inset:0;z-index:25;border:0;background:rgba(0,0,0,.64)}.dashboard-grid{grid-template-columns:1fr}}
+@media(max-width:800px){.sidebar{transform:translateX(-100%);transition:transform .2s ease}.sidebar-open{transform:translateX(0)}.mobile-close,.menu-button{display:grid;place-items:center}.workspace{margin-left:0}.topbar{padding:0 14px;gap:10px}.utc{display:none}.scrim{display:block;position:fixed;inset:0;z-index:25;border:0;background:rgba(0,0,0,.64)}.dashboard-grid{grid-template-columns:1fr}.paper-strip{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:570px){.content{padding:12px}.strategy-banner{align-items:flex-start;flex-wrap:wrap}.banner-badges{margin-left:59px;flex-wrap:wrap}.metrics-grid{grid-template-columns:repeat(2,1fr)}.metric-card strong{font-size:20px}.bottom-grid{grid-template-columns:1fr}.online{display:none}.main-chart{height:220px}}
