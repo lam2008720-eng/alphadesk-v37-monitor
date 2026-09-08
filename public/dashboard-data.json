@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T07:28:11.358925+00:00",
+  "generated_at": "2026-09-08T09:47:02.736522+00:00",
   "strategy": "V37_3_PROPORTIONAL_CAPITAL_UTILIZATION",
   "mode": "SHADOW ONLY",
   "promoted": false,
@@ -22,7 +22,23 @@
     "oos_max_drawdown": 0.08475968000927658,
     "oos_target_coverage": 0.8301850147509859,
     "combined_adjustments": 12307,
-    "current_weex_specs": 1011
+    "current_weex_specs": 1011,
+    "vip_level": 2,
+    "taker_fee_rate": 0.0006
+  },
+  "risk_policy": {
+    "gross_target": 0.5,
+    "asset_cap": 0.1,
+    "max_drawdown_gate": 0.15,
+    "minimum_pf": 1.25,
+    "minimum_sharpe": 0.75
+  },
+  "historical_gates": {
+    "OOS return > 0": true,
+    "OOS PF > 1.25": true,
+    "OOS Sharpe > 0.75": true,
+    "OOS max DD < 15%": true,
+    "OOS target coverage >= 80%": true
   },
   "forward": {
     "cutoff": "2026-09-07T00:00:00+00:00",
@@ -34,8 +50,37 @@
     "ready_for_review": false
   },
   "cron": {
-    "state": "healthy",
-    "last_success_utc": "2026-09-07 00:01:06 UTC"
+    "state": "error",
+    "last_success_utc": "2026-09-07 00:01:06 UTC",
+    "last_attempt_utc": "2026-09-08 03:32:10 UTC",
+    "message": "每日資料更新失敗；網站保留上一個有效快照",
+    "recent_events": [
+      {
+        "time": "2026-09-07 00:00:53 UTC",
+        "kind": "info",
+        "message": "Starting V37 public-data shadow cycle."
+      },
+      {
+        "time": "2026-09-07 00:01:06 UTC",
+        "kind": "success",
+        "message": "V37 shadow completed successfully."
+      },
+      {
+        "time": "2026-09-07 00:45:00 UTC",
+        "kind": "success",
+        "message": "V37 shadow already completed for 2026-09-07; skipping."
+      },
+      {
+        "time": "2026-09-08 03:30:57 UTC",
+        "kind": "info",
+        "message": "Starting V37 public-data shadow cycle."
+      },
+      {
+        "time": "2026-09-08 03:32:10 UTC",
+        "kind": "error",
+        "message": "V37 shadow failed closed with exit 1."
+      }
+    ]
   },
   "equity_curve": [
     {

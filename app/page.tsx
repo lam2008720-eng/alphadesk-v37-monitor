@@ -89,6 +89,23 @@ export default function Home() {
             <section id="system" className="panel guard-panel"><div className="panel-title"><h3>網站安全防線</h3><ShieldCheck className="positive" size={20}/></div><div className="guard-list"><div><CheckCircle2/><span><b>實盤執行鎖</b><small>promoted=false，網站無交易接口</small></span></div><div><CheckCircle2/><span><b>公開資料白名單</b><small>只同步統計結果，不含 Vault 或 API 憑證</small></span></div><div><CheckCircle2/><span><b>自動刷新</b><small>頁面每 60 秒檢查最新已發布快照</small></span></div></div></section>
           </div>
           <section id="data" className="bottom-grid"><article className="mini-panel"><Server/><div><span>每日自動管線</span><b>{data.cron.state === 'healthy' ? '最近成功' : '需要修復'}</b><small>{data.cron.last_success_utc ?? '尚未有紀錄'}</small></div><i className={`status-dot ${data.cron.state === 'healthy' ? '' : 'red'}`}/></article><article className="mini-panel"><Database/><div><span>合約資料宇宙</span><b>{historical.current_weex_specs.toLocaleString()} 個規格</b><small>公開市場資料</small></div><i className="status-dot"/></article><article className="mini-panel"><Radar/><div><span>歷史目標覆蓋率</span><b>{pct(historical.oos_target_coverage)}</b><small>OOS 平均值</small></div><i className="status-dot"/></article><article className="mini-panel"><CircleGauge/><div><span>網站模擬本金</span><b>{wallet.starting_balance.toFixed(0)} USDT</b><small>不連接交易帳戶</small></div><i className="status-dot amber"/></article></section>
+          <section className="detail-grid">
+            <article className={`panel operations-panel ${data.cron.state === 'error' ? 'has-error' : ''}`}>
+              <div className="panel-title"><div><span>今日運行</span><h3>自動化健康狀態</h3></div><b className={data.cron.state === 'healthy' ? 'positive' : 'negative'}>{data.cron.state === 'healthy' ? '正常' : '需要處理'}</b></div>
+              <div className="incident"><Activity/><div><b>{data.cron.message}</b><span>最後嘗試：{data.cron.last_attempt_utc ?? '未有紀錄'}</span></div></div>
+              <div className="event-list">{data.cron.recent_events.length ? data.cron.recent_events.map((event, index) => <div key={`${event.time}-${index}`}><i className={event.kind}/><time>{event.time}</time><span>{event.message}</span></div>) : <p>尚未有系統事件。</p>}</div>
+            </article>
+            <article className="panel risk-policy-panel">
+              <div className="panel-title"><div><span>凍結規則</span><h3>500 USDT 模擬風險框架</h3></div><LockKeyhole size={18} className="positive"/></div>
+              <div className="policy-grid"><div><span>目標 Gross</span><b>{pct(data.risk_policy.gross_target)}</b></div><div><span>單一資產上限</span><b>{pct(data.risk_policy.asset_cap)}</b></div><div><span>回撤門檻</span><b>&lt; {pct(data.risk_policy.max_drawdown_gate)}</b></div><div><span>交易成本</span><b>VIP {historical.vip_level} · {(historical.taker_fee_rate * 100).toFixed(3)}%</b></div></div>
+              <p>以上係研究與 Shadow 計算規則；網站本身冇交易執行權限。</p>
+            </article>
+          </section>
+          <section className="panel gates-panel">
+            <div className="panel-title"><div><span>歷史獨立樣本</span><h3>候選策略 Gate 審核</h3></div><span className="gate-count">{Object.values(data.historical_gates).filter(Boolean).length}/{Object.keys(data.historical_gates).length} 歷史門檻通過</span></div>
+            <div className="gate-table">{Object.entries(data.historical_gates).map(([name, passed]) => <div key={name}><span>{name}</span><b className={passed ? 'positive' : 'negative'}>{passed ? 'PASS' : 'FAIL'}</b></div>)}</div>
+            <p>歷史 Gate 全通過仍不等於可實盤；必須另外累積未曝光 Forward 證據並經人工審核。</p>
+          </section>
           <footer>此網站只作策略研究與模擬監控。歷史績效不保證未來收益；目前不具備下單、撤單或存取交易帳戶能力。</footer>
         </div>
       </section>
