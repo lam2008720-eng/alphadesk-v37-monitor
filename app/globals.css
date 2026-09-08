@@ -71,6 +71,10 @@ nav button.active svg:first-child { color:var(--green); }
 .chart-value strong { font-family:Georgia,serif; font-size:27px; }
 .chart-value span { color:var(--green); font-size:11px; }
 .main-chart { height:260px; margin-top:7px; }
+.empty-chart { height:100%; display:grid; place-content:center; justify-items:center; gap:8px; color:#587066; text-align:center; }
+.empty-chart svg { color:#2f6650; }
+.empty-chart b { color:#9bb0a7; font-size:13px; }
+.empty-chart span { max-width:330px; font-size:10px; line-height:1.5; }
 .chart-note { margin:8px 0 0; color:#536a61; font-size:10px; }
 .healthy { display:flex; align-items:center; gap:7px; color:var(--green); font-size:10px; }
 .status-row { display:flex; justify-content:space-between; gap:18px; padding:11px 0; border-bottom:1px solid #11271e; font-size:11px; }

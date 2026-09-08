@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T07:17:15.805547+00:00",
+  "generated_at": "2026-09-08T07:28:11.358925+00:00",
   "strategy": "V37_3_PROPORTIONAL_CAPITAL_UTILIZATION",
   "mode": "SHADOW ONLY",
   "promoted": false,
@@ -384,5 +384,6 @@
       "date": "2026-09-05",
       "value": -4.19
     }
-  ]
+  ],
+  "forward_daily": []
 }

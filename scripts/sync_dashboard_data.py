@@ -49,6 +49,26 @@ def load_oos_curve(path: Path, days: int) -> tuple[list[dict[str, Any]], list[di
     return equity, drawdown
 
 
+def load_forward_daily(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    output: list[dict[str, Any]] = []
+    for row in rows:
+        if not row.get("date") or not row.get("equity"):
+            continue
+        output.append({
+            "date": row["date"][:10],
+            "net": round(float(row["net"]), 8),
+            "equity": round(float(row["equity"]), 4),
+            "cost_usdt": round(float(row["cost_usdt"]), 6),
+            "adjustments": int(float(row["adjustments"])),
+            "gross": round(float(row["gross"]), 6),
+        })
+    return output[-30:]
+
+
 def cron_status() -> dict[str, Any]:
     if not LOG_PATH.exists():
         return {"state": "unknown", "last_success_utc": None}
@@ -67,6 +87,7 @@ def main() -> int:
     oos = historical["splits"]["OOS"]
     combined = historical["splits"]["Combined"]
     equity, drawdown = load_oos_curve(V37_ROOT / "v37_3_daily_ledger.csv", int(oos["days"]))
+    forward_daily = load_forward_daily(V37_ROOT / "v37_3_forward_daily.csv")
 
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -106,6 +127,7 @@ def main() -> int:
         "cron": cron_status(),
         "equity_curve": equity,
         "drawdown_curve": drawdown,
+        "forward_daily": forward_daily,
     }
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
