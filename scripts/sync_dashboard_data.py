@@ -71,16 +71,21 @@ def load_forward_daily(path: Path) -> list[dict[str, Any]]:
 
 
 def load_shadow_positions(current_path: Path, history_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    columns = ["date", "symbol", "side", "target_weight", "shadow_notional_usdt"]
+    numeric = ["quantity", "reference_price", "mark_price", "target_weight", "executed_weight",
+               "shadow_notional_usdt", "price_pnl_usdt", "funding_pnl_usdt", "cost_usdt", "net_pnl_usdt"]
+    def clean(row: dict[str, str]) -> dict[str, Any]:
+        output: dict[str, Any] = {
+            "date": row["date"], "symbol": row["symbol"], "side": row["side"],
+            "action": row.get("action", "HOLD"),
+        }
+        for key in numeric:
+            output[key] = round(float(row.get(key) or 0.0), 8)
+        return output
+
     current_rows: list[dict[str, Any]] = []
     if current_path.exists():
         with current_path.open("r", encoding="utf-8", newline="") as handle:
-            for row in csv.DictReader(handle):
-                current_rows.append({
-                    "date": row["date"], "symbol": row["symbol"], "side": row["side"],
-                    "target_weight": round(float(row["target_weight"]), 8),
-                    "shadow_notional_usdt": round(float(row["shadow_notional_usdt"]), 4),
-                })
+            current_rows = [clean(row) for row in csv.DictReader(handle)]
     current_rows.sort(key=lambda row: row["shadow_notional_usdt"], reverse=True)
     long_notional = sum(row["shadow_notional_usdt"] for row in current_rows if row["side"] == "LONG")
     short_notional = sum(row["shadow_notional_usdt"] for row in current_rows if row["side"] == "SHORT")
@@ -94,11 +99,13 @@ def load_shadow_positions(current_path: Path, history_path: Path) -> tuple[dict[
         "short_notional_usdt": round(short_notional, 4),
         "gross_notional_usdt": round(long_notional + short_notional, 4),
         "net_notional_usdt": round(long_notional - short_notional, 4),
+        "daily_net_pnl_usdt": round(sum(row["net_pnl_usdt"] for row in current_rows), 4),
+        "daily_cost_usdt": round(sum(row["cost_usdt"] for row in current_rows), 4),
     }
     history: list[dict[str, Any]] = []
     if history_path.exists():
         with history_path.open("r", encoding="utf-8", newline="") as handle:
-            history = [{key: row.get(key, "") for key in columns} for row in csv.DictReader(handle)]
+            history = [clean(row) for row in csv.DictReader(handle)]
     return summary, history[-200:]
 
 
