@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T00:47:03.951319+00:00",
+  "generated_at": "2026-09-09T10:15:25.308056+00:00",
   "strategy": "V37_3_PROPORTIONAL_CAPITAL_UTILIZATION",
   "mode": "SHADOW ONLY",
   "promoted": false,
@@ -51,20 +51,10 @@
   },
   "cron": {
     "state": "healthy",
-    "last_success_utc": "2026-09-08 10:03:50 UTC",
-    "last_attempt_utc": "2026-09-09 00:47:03 UTC",
+    "last_success_utc": "2026-09-09 00:47:14 UTC",
+    "last_attempt_utc": "2026-09-09 00:47:14 UTC",
     "message": "每日 Shadow 與網站同步正常",
     "recent_events": [
-      {
-        "time": "2026-09-08 10:03:46 UTC",
-        "kind": "success",
-        "message": "V37 shadow completed; updating read-only dashboard snapshot."
-      },
-      {
-        "time": "2026-09-08 10:03:46 UTC",
-        "kind": "info",
-        "message": "Publishing sanitized dashboard snapshot to GitHub Pages."
-      },
       {
         "time": "2026-09-08 10:03:50 UTC",
         "kind": "success",
@@ -79,6 +69,16 @@
         "time": "2026-09-09 00:47:03 UTC",
         "kind": "success",
         "message": "V37 shadow completed; updating read-only dashboard snapshot."
+      },
+      {
+        "time": "2026-09-09 00:47:03 UTC",
+        "kind": "info",
+        "message": "Publishing sanitized dashboard snapshot to GitHub Pages."
+      },
+      {
+        "time": "2026-09-09 00:47:14 UTC",
+        "kind": "success",
+        "message": "V37 shadow, dashboard snapshot, and publish completed successfully."
       }
     ]
   },
@@ -438,6 +438,426 @@
       "cost_usdt": 0.105692,
       "adjustments": 14,
       "gross": 0.352307
+    }
+  ],
+  "shadow_portfolio": {
+    "as_of": "2026-09-08T00:00:00+00:00",
+    "positions": [
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "XAU/USDT:USDT",
+        "side": "SHORT",
+        "target_weight": -0.0567514,
+        "shadow_notional_usdt": 28.2883
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "BNB/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.05515522,
+        "shadow_notional_usdt": 27.4927
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "SOL/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.05369275,
+        "shadow_notional_usdt": 26.7637
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "ZEC/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.05100096,
+        "shadow_notional_usdt": 25.4219
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "XAG/USDT:USDT",
+        "side": "SHORT",
+        "target_weight": -0.04180786,
+        "shadow_notional_usdt": 20.8395
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "ENA/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.04086818,
+        "shadow_notional_usdt": 20.3712
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "PUMP/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.03794134,
+        "shadow_notional_usdt": 18.9122
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "INTC/USDT:USDT",
+        "side": "SHORT",
+        "target_weight": -0.03374306,
+        "shadow_notional_usdt": 16.8196
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "HYPE/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.02318069,
+        "shadow_notional_usdt": 11.5547
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "SUI/USDT:USDT",
+        "side": "SHORT",
+        "target_weight": -0.02224214,
+        "shadow_notional_usdt": 11.0868
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "TRUMP/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.01746239,
+        "shadow_notional_usdt": 8.7043
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "CRCL/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.01094624,
+        "shadow_notional_usdt": 5.4563
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "LINK/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.01080455,
+        "shadow_notional_usdt": 5.3856
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "DOGE/USDT:USDT",
+        "side": "SHORT",
+        "target_weight": -0.00982456,
+        "shadow_notional_usdt": 4.8972
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "TUT/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.00876434,
+        "shadow_notional_usdt": 4.3687
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "UNI/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.00792412,
+        "shadow_notional_usdt": 3.9499
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "XRP/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.00656105,
+        "shadow_notional_usdt": 3.2704
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "ADA/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.00544906,
+        "shadow_notional_usdt": 2.7161
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "WLD/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.00310079,
+        "shadow_notional_usdt": 1.5456
+      },
+      {
+        "date": "2026-09-08T00:00:00+00:00",
+        "symbol": "CYS/USDT:USDT",
+        "side": "LONG",
+        "target_weight": 0.0027793,
+        "shadow_notional_usdt": 1.3854
+      }
+    ],
+    "position_count": 20,
+    "long_count": 15,
+    "short_count": 5,
+    "long_notional_usdt": 167.2987,
+    "short_notional_usdt": 81.9314,
+    "gross_notional_usdt": 249.2301,
+    "net_notional_usdt": 85.3673
+  },
+  "position_history": [
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "ADA/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.009410805061812872",
+      "shadow_notional_usdt": "4.6909106054051914"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "BEAT/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.00610935596310406",
+      "shadow_notional_usdt": "3.0452700370779544"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "BNB/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.06786736989995772",
+      "shadow_notional_usdt": "33.82917435156613"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "CYS/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.005333664158057081",
+      "shadow_notional_usdt": "2.658618641058088"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "DOGE/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.005487881628145419",
+      "shadow_notional_usdt": "2.735489892903654"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "ENA/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.036974242731720584",
+      "shadow_notional_usdt": "18.430183838452855"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "HYPE/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0364156488329809",
+      "shadow_notional_usdt": "18.151747081288974"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "INTC/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.05557765403791658",
+      "shadow_notional_usdt": "27.70324165016559"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "PUMP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.04181637866087929",
+      "shadow_notional_usdt": "20.843795281226544"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "SOL/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0392807862241499",
+      "shadow_notional_usdt": "19.579903682759213"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "SUI/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.018863598740591184",
+      "shadow_notional_usdt": "9.402750860009974"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "TRUMP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.011616928178131675",
+      "shadow_notional_usdt": "5.790574901413452"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "TUT/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.011056909192741651",
+      "shadow_notional_usdt": "5.511427795449675"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "WLD/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.007862447207782714",
+      "shadow_notional_usdt": "3.9191160319626803"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "XAG/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.04419303581043305",
+      "shadow_notional_usdt": "22.028463984384885"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "XAU/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.045862165826089804",
+      "shadow_notional_usdt": "22.860458658678574"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "XRP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0064585856829198155",
+      "shadow_notional_usdt": "3.219347109724365"
+    },
+    {
+      "date": "2026-09-07T00:00:00+00:00",
+      "symbol": "ZEC/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.04981254216258574",
+      "shadow_notional_usdt": "24.829563547207712"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "ADA/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0054490589393576495",
+      "shadow_notional_usdt": "2.716138332503803"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "BNB/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.05515522105185391",
+      "shadow_notional_usdt": "27.49267567186951"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "CRCL/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.010946243486106308",
+      "shadow_notional_usdt": "5.4562653589205325"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "CYS/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0027792998440757917",
+      "shadow_notional_usdt": "1.3853700112309657"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "DOGE/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.00982456117194552",
+      "shadow_notional_usdt": "4.897151507466608"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "ENA/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.040868181426734616",
+      "shadow_notional_usdt": "20.371156815925225"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "HYPE/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.023180693612508966",
+      "shadow_notional_usdt": "11.554650297539963"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "INTC/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.033743056446278834",
+      "shadow_notional_usdt": "16.819566477359768"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "LINK/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.010804552079076553",
+      "shadow_notional_usdt": "5.385637849417894"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "PUMP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.037941338293484",
+      "shadow_notional_usdt": "18.912242365573423"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "SOL/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.053692746775601846",
+      "shadow_notional_usdt": "26.76369063312496"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "SUI/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.022242136123480635",
+      "shadow_notional_usdt": "11.086816860321006"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "TRUMP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.017462388010095434",
+      "shadow_notional_usdt": "8.704303252933107"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "TUT/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.008764344363011132",
+      "shadow_notional_usdt": "4.368675756413158"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "UNI/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.007924116850907154",
+      "shadow_notional_usdt": "3.949855886955305"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "WLD/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.0031007941925257636",
+      "shadow_notional_usdt": "1.5456221085612325"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "XAG/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.04180785836771141",
+      "shadow_notional_usdt": "20.83954825524738"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "XAU/USDT:USDT",
+      "side": "SHORT",
+      "target_weight": "-0.0567513994736408",
+      "shadow_notional_usdt": "28.288306889145694"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "XRP/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.006561045491170626",
+      "shadow_notional_usdt": "3.270419233521914"
+    },
+    {
+      "date": "2026-09-08T00:00:00+00:00",
+      "symbol": "ZEC/USDT:USDT",
+      "side": "LONG",
+      "target_weight": "0.051000964000432955",
+      "shadow_notional_usdt": "25.421944386704"
     }
   ]
 }

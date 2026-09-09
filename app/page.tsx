@@ -1,6 +1,6 @@
 'use client';
 
-import { Activity, BarChart3, Bot, CheckCircle2, ChevronRight, CircleGauge, Database, Eye, FileClock, LockKeyhole, Menu, Radar, RefreshCw, Server, ShieldCheck, TrendingUp, WalletCards, X } from 'lucide-react';
+import { Activity, BarChart3, Bot, BriefcaseBusiness, CheckCircle2, ChevronRight, CircleGauge, Database, Eye, FileClock, History, LockKeyhole, Menu, Radar, RefreshCw, Server, ShieldCheck, TrendingUp, WalletCards, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import dashboardData from '../public/dashboard-data.json';
@@ -8,6 +8,7 @@ import dashboardData from '../public/dashboard-data.json';
 const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
 const navItems = [
   { id: 'overview', label: '策略總覽', icon: BarChart3 },
+  { id: 'positions', label: '模擬持倉', icon: BriefcaseBusiness },
   { id: 'forward', label: 'Forward 觀察', icon: Eye },
   { id: 'risk', label: '組合風險', icon: ShieldCheck },
   { id: 'system', label: '系統狀態', icon: Activity },
@@ -26,6 +27,7 @@ export default function Home() {
   const [data, setData] = useState(dashboardData);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
+  const [positionView, setPositionView] = useState<'current' | 'history'>('current');
   const [range, setRange] = useState('TODAY');
   const [refreshing, setRefreshing] = useState(false);
   const [lastChecked, setLastChecked] = useState(new Date());
@@ -36,6 +38,7 @@ export default function Home() {
   const forwardSeries = useMemo(() => data.forward_daily.slice(-rangeSize[range]), [data, range]);
   const drawdown = useMemo(() => data.drawdown_curve.slice(-rangeSize[range]), [data, range]);
   const latestDay = data.forward_daily.at(-1);
+  const displayedPositions = positionView === 'current' ? data.shadow_portfolio.positions : [...data.position_history].reverse();
   const generatedAt = new Date(data.generated_at);
   const ageHours = Math.max(0, (lastChecked.getTime() - generatedAt.getTime()) / 3_600_000);
   const freshness = ageHours <= 30 ? '最新' : '資料延遲';
@@ -82,6 +85,12 @@ export default function Home() {
           <section className="paper-strip" aria-label="模擬資金摘要"><div><span>模擬初始資金</span><strong>{wallet.starting_balance.toFixed(2)} USDT</strong></div><div><span>模擬目前淨值</span><strong>{wallet.current_balance.toFixed(2)} USDT</strong></div><div><span>Forward 模擬回報</span><strong>{wallet.net_return == null ? '等待首個完整交易日' : pct(wallet.net_return)}</strong></div><div><span>真實資金曝險</span><strong className="positive">{wallet.real_exposure.toFixed(2)} USDT</strong></div></section>
           <section className="metrics-grid">
             <MetricCard label="今日模擬盈虧" value={latestDay ? pct(latestDay.net) : '等待日結'} detail={latestDay?.date ?? '尚未產完整 Forward 日'} tone={latestDay && latestDay.net >= 0 ? 'green' : latestDay ? 'red' : 'neutral'} /><MetricCard label="今日模擬淨值" value={`${wallet.current_balance.toFixed(2)} U`} detail="500 USDT 起始資金" /><MetricCard label="今日調倉" value={String(latestDay?.adjustments ?? 0)} detail="Shadow accounting only" /><MetricCard label="最新觀察日" value={forward.latest_observation?.slice(0, 10) ?? '等待資料'} detail="UTC 已完成日線" /><MetricCard label="Forward 進度" value={`${forward.days} 日`} detail={`${forward.adjustments} 次調整`} /><MetricCard label="真實訂單" value={String(data.orders_submitted)} detail={`promoted = ${data.promoted}`} />
+          </section>
+          <section id="positions" className="panel positions-panel">
+            <div className="panel-head"><div><span>每日 Shadow 倉位帳本</span><h3>模擬持倉與歷史配置</h3></div><div className="position-tabs" aria-label="持倉檢視"><button className={positionView === 'current' ? 'selected' : ''} onClick={() => setPositionView('current')}><BriefcaseBusiness size={14}/>目前持倉</button><button className={positionView === 'history' ? 'selected' : ''} onClick={() => setPositionView('history')}><History size={14}/>歷史倉位</button></div></div>
+            <div className="position-summary"><div><span>持倉數量</span><b>{data.shadow_portfolio.position_count}</b></div><div><span>Long / Short</span><b><em className="positive">{data.shadow_portfolio.long_count}</em> / <em className="negative">{data.shadow_portfolio.short_count}</em></b></div><div><span>Gross 名義值</span><b>{data.shadow_portfolio.gross_notional_usdt.toFixed(2)} U</b></div><div><span>Net 名義值</span><b>{data.shadow_portfolio.net_notional_usdt.toFixed(2)} U</b></div><div><span>倉位日期</span><b>{data.shadow_portfolio.as_of?.slice(0, 10) ?? '等待日結'}</b></div></div>
+            <div className="position-table-wrap"><table className="position-table"><thead><tr><th>日期</th><th>合約</th><th>方向</th><th>目標權重</th><th>模擬名義值</th></tr></thead><tbody>{displayedPositions.length ? displayedPositions.map((position, index) => <tr key={`${position.date}-${position.symbol}-${index}`}><td>{position.date.slice(0,10)}</td><td><strong>{position.symbol.replace('/USDT:USDT','')}</strong><small>USDT PERP</small></td><td><span className={`side-badge ${position.side.toLowerCase()}`}>{position.side}</span></td><td className={position.side === 'LONG' ? 'positive' : 'negative'}>{(Number(position.target_weight) * 100).toFixed(2)}%</td><td>{Number(position.shadow_notional_usdt).toFixed(2)} U</td></tr>) : <tr><td colSpan={5} className="empty-row">尚未有完成日嘅 Shadow 倉位。</td></tr>}</tbody></table></div>
+            <p className="chart-note">呢啲係凍結策略根據已收盤日線計算嘅模擬目標倉位，每日更新一次；唔係交易所實時持倉，亦冇提交任何訂單。</p>
           </section>
           <div className="dashboard-grid">
             <section id="research" className="panel equity-panel">

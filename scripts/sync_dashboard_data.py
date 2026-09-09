@@ -70,6 +70,38 @@ def load_forward_daily(path: Path) -> list[dict[str, Any]]:
     return output[-30:]
 
 
+def load_shadow_positions(current_path: Path, history_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    columns = ["date", "symbol", "side", "target_weight", "shadow_notional_usdt"]
+    current_rows: list[dict[str, Any]] = []
+    if current_path.exists():
+        with current_path.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                current_rows.append({
+                    "date": row["date"], "symbol": row["symbol"], "side": row["side"],
+                    "target_weight": round(float(row["target_weight"]), 8),
+                    "shadow_notional_usdt": round(float(row["shadow_notional_usdt"]), 4),
+                })
+    current_rows.sort(key=lambda row: row["shadow_notional_usdt"], reverse=True)
+    long_notional = sum(row["shadow_notional_usdt"] for row in current_rows if row["side"] == "LONG")
+    short_notional = sum(row["shadow_notional_usdt"] for row in current_rows if row["side"] == "SHORT")
+    summary = {
+        "as_of": current_rows[0]["date"] if current_rows else None,
+        "positions": current_rows,
+        "position_count": len(current_rows),
+        "long_count": sum(row["side"] == "LONG" for row in current_rows),
+        "short_count": sum(row["side"] == "SHORT" for row in current_rows),
+        "long_notional_usdt": round(long_notional, 4),
+        "short_notional_usdt": round(short_notional, 4),
+        "gross_notional_usdt": round(long_notional + short_notional, 4),
+        "net_notional_usdt": round(long_notional - short_notional, 4),
+    }
+    history: list[dict[str, Any]] = []
+    if history_path.exists():
+        with history_path.open("r", encoding="utf-8", newline="") as handle:
+            history = [{key: row.get(key, "") for key in columns} for row in csv.DictReader(handle)]
+    return summary, history[-200:]
+
+
 def cron_status() -> dict[str, Any]:
     if not LOG_PATH.exists():
         return {"state": "unknown", "last_success_utc": None, "last_attempt_utc": None, "message": "尚未有排程紀錄"}
@@ -107,6 +139,10 @@ def main() -> int:
     combined = historical["splits"]["Combined"]
     equity, drawdown = load_oos_curve(V37_ROOT / "v37_3_daily_ledger.csv", int(oos["days"]))
     forward_daily = load_forward_daily(V37_ROOT / "v37_3_forward_daily.csv")
+    shadow_portfolio, position_history = load_shadow_positions(
+        V37_ROOT / "v37_3_forward_current_positions.csv",
+        V37_ROOT / "v37_3_forward_position_history.csv",
+    )
 
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -157,6 +193,8 @@ def main() -> int:
         "equity_curve": equity,
         "drawdown_curve": drawdown,
         "forward_daily": forward_daily,
+        "shadow_portfolio": shadow_portfolio,
+        "position_history": position_history,
     }
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
