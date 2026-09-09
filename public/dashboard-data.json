@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T10:03:46.801428+00:00",
+  "generated_at": "2026-09-09T00:47:03.951319+00:00",
   "strategy": "V37_3_PROPORTIONAL_CAPITAL_UTILIZATION",
   "mode": "SHADOW ONLY",
   "promoted": false,
@@ -7,8 +7,8 @@
   "orders_submitted": 0,
   "paper_wallet": {
     "starting_balance": 500.0,
-    "current_balance": 500.0,
-    "net_return": null,
+    "current_balance": 498.460075901471,
+    "net_return": -0.003079848197057977,
     "real_exposure": 0.0,
     "real_positions": 0
   },
@@ -42,41 +42,41 @@
   },
   "forward": {
     "cutoff": "2026-09-07T00:00:00+00:00",
-    "latest_observation": null,
-    "days": 0,
+    "latest_observation": "2026-09-08T00:00:00+00:00",
+    "days": 1,
     "minimum_days": 180,
-    "adjustments": 0,
+    "adjustments": 14,
     "minimum_adjustments": 150,
     "ready_for_review": false
   },
   "cron": {
     "state": "healthy",
-    "last_success_utc": "2026-09-07 00:01:06 UTC",
-    "last_attempt_utc": "2026-09-08 10:03:46 UTC",
+    "last_success_utc": "2026-09-08 10:03:50 UTC",
+    "last_attempt_utc": "2026-09-09 00:47:03 UTC",
     "message": "每日 Shadow 與網站同步正常",
     "recent_events": [
       {
-        "time": "2026-09-08 03:32:10 UTC",
-        "kind": "error",
-        "message": "V37 shadow failed closed with exit 1."
-      },
-      {
-        "time": "2026-09-08 09:59:47 UTC",
-        "kind": "info",
-        "message": "Starting V37 public-data shadow cycle."
-      },
-      {
-        "time": "2026-09-08 09:59:49 UTC",
-        "kind": "error",
-        "message": "V37 shadow failed closed with exit 1."
-      },
-      {
-        "time": "2026-09-08 10:02:59 UTC",
-        "kind": "info",
-        "message": "Starting V37 public-data shadow cycle."
+        "time": "2026-09-08 10:03:46 UTC",
+        "kind": "success",
+        "message": "V37 shadow completed; updating read-only dashboard snapshot."
       },
       {
         "time": "2026-09-08 10:03:46 UTC",
+        "kind": "info",
+        "message": "Publishing sanitized dashboard snapshot to GitHub Pages."
+      },
+      {
+        "time": "2026-09-08 10:03:50 UTC",
+        "kind": "success",
+        "message": "V37 shadow, dashboard snapshot, and publish completed successfully."
+      },
+      {
+        "time": "2026-09-09 00:45:09 UTC",
+        "kind": "info",
+        "message": "Starting V37 public-data shadow cycle."
+      },
+      {
+        "time": "2026-09-09 00:47:03 UTC",
         "kind": "success",
         "message": "V37 shadow completed; updating read-only dashboard snapshot."
       }
@@ -430,5 +430,14 @@
       "value": -4.19
     }
   ],
-  "forward_daily": []
+  "forward_daily": [
+    {
+      "date": "2026-09-08",
+      "net": -0.00307985,
+      "equity": 498.4601,
+      "cost_usdt": 0.105692,
+      "adjustments": 14,
+      "gross": 0.352307
+    }
+  ]
 }
