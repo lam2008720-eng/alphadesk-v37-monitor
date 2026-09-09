@@ -7,9 +7,12 @@ import dashboardData from '../public/dashboard-data.json';
 
 const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
 const navItems = [
-  { label: '策略總覽', icon: BarChart3, active: true }, { label: 'Forward 觀察', icon: Eye },
-  { label: '組合風險', icon: ShieldCheck }, { label: '系統狀態', icon: Activity },
-  { label: '數據狀態', icon: Database }, { label: '研究紀錄', icon: FileClock },
+  { id: 'overview', label: '策略總覽', icon: BarChart3 },
+  { id: 'forward', label: 'Forward 觀察', icon: Eye },
+  { id: 'risk', label: '組合風險', icon: ShieldCheck },
+  { id: 'system', label: '系統狀態', icon: Activity },
+  { id: 'data', label: '數據狀態', icon: Database },
+  { id: 'research', label: '研究紀錄', icon: FileClock },
 ];
 
 function MetricCard({ label, value, detail, tone = 'neutral' }: { label: string; value: string; detail: string; tone?: 'green' | 'red' | 'neutral' }) {
@@ -22,6 +25,7 @@ function StatusRow({ label, value, good = false }: { label: string; value: strin
 export default function Home() {
   const [data, setData] = useState(dashboardData);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('overview');
   const [range, setRange] = useState('TODAY');
   const [refreshing, setRefreshing] = useState(false);
   const [lastChecked, setLastChecked] = useState(new Date());
@@ -56,15 +60,25 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const sections = navItems.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveSection(visible.target.id);
+    }, { rootMargin: '-84px 0px -55% 0px', threshold: [0.05, 0.25, 0.5] });
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const goTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActiveSection(id);
     setSidebarOpen(false);
   };
   return (
     <main className="app-shell">
       <aside className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="brand"><div className="brand-mark"><TrendingUp size={19} /></div><div><b>AlphaDesk</b><span>QUANT WORKSPACE</span></div><button className="mobile-close" onClick={() => setSidebarOpen(false)} aria-label="關閉選單"><X /></button></div>
-        <nav aria-label="主要導覽">{navItems.map(({ label, icon: Icon, active }, index) => <button key={label} className={active ? 'active' : ''} onClick={() => goTo(['overview','forward','risk','system','data','research'][index])}><Icon size={17} /><span>{label}</span>{active && <ChevronRight size={14} />}</button>)}</nav>
+        <nav aria-label="主要導覽">{navItems.map(({ id, label, icon: Icon }) => <a key={id} href={`#${id}`} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'location' : undefined} onClick={() => goTo(id)}><Icon size={17} /><span>{label}</span>{activeSection === id && <ChevronRight size={14} />}</a>)}</nav>
         <div className="safety-card"><LockKeyhole size={18} /><div><b>安全鎖已啟用</b><span>只讀監控 · 禁止交易</span></div></div>
         <div className="sidebar-foot"><span>資料來源</span><b>本機策略檔案</b></div>
       </aside>
